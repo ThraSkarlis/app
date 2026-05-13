@@ -1,0 +1,95 @@
+{
+  "project_name": "Dark and Darker Loadout Builder",
+  "theme": {
+    "aesthetic": "Dark Fantasy Medieval Dungeon-crawler",
+    "mood": "Atmospheric, arcane, worn, candlelight, gritty, mysterious",
+    "inspiration": "Dark and Darker, Diablo, D&D Grimoires",
+    "overall_feel": "A weathered medieval tome or dungeon inventory system. Heavy, physical, and historical, avoiding modern flat UI aesthetics."
+  },
+  "colors": {
+    "background": {
+      "main": "#0A0A0A",
+      "surface_dark": "#151515",
+      "surface_parchment": "#1C1712",
+      "surface_panel": "#111111"
+    },
+    "borders": {
+      "gold": "#8B6914",
+      "brass_tarnished": "#5C4D32",
+      "leather_dark": "#2D1F16",
+      "subtle_stone": "#2A2A2A"
+    },
+    "text": {
+      "primary": "#E5DAC8",
+      "secondary": "#A09582",
+      "highlight": "#D4AF37",
+      "dark_on_parchment": "#2B2219"
+    },
+    "rarity": {
+      "poor": "#808080",
+      "common": "#FFFFFF",
+      "uncommon": "#32CD32",
+      "rare": "#00BFFF",
+      "epic": "#8A2BE2",
+      "legendary": "#FFA500",
+      "unique": "#DC143C"
+    }
+  },
+  "typography": {
+    "headings": {
+      "family": "Cormorant Garamond",
+      "weight": "700",
+      "style": "Gothic, classical, textured. Use for Class names, loadout titles, and major sections."
+    },
+    "body": {
+      "family": "EB Garamond",
+      "weight": "400",
+      "style": "Arcane text, readable for item descriptions and flavor text."
+    },
+    "ui_elements": {
+      "family": "Inter",
+      "weight": "500",
+      "style": "Use only for highly dense numerical stats to guarantee readability on small mobile screens."
+    }
+  },
+  "spacing_and_layout": {
+    "mobile_strategy": "Split Vertical View. ~35% Left Sidebar for Stats, ~65% Right Area for Equipment Slots.",
+    "container_padding": "Tight padding (p-2 or p-3) to maximize screen real estate for the game stats.",
+    "gap": "gap-2 or gap-3 to feel dense, similar to a real complex RPG inventory.",
+    "panels": "Heavy use of solid borders (tarnished brass) and distinct background textures to separate the stats ledger from the paperdoll (gear slots) area.",
+    "alignment": "Stats should be strictly left-aligned for scannability. Gear slots should be center-aligned in a custom grid."
+  },
+  "components": {
+    "stats_panel": {
+      "layout": "Fixed on the left side, scrollable vertically, taking up ~35% of the viewport width.",
+      "background": "Dark parchment or deep stone texture with a 1px tarnished brass right border.",
+      "text_style": "Dense vertical list. Primary stats highlighted in white or gold. Derived stats in secondary color. Small text sizes (text-xs or text-sm) to fit the data."
+    },
+    "equipment_grid": {
+      "layout": "Takes remaining right space. Arranged organically (e.g., Head slot at top center, Chest below it, Weapons on sides, Rings grouped together).",
+      "slot_style": "Square or slight portrait boxes. Dark leather/stone backgrounds. 2px tarnished brass borders. Empty state should show a faint grey icon of the slot type."
+    },
+    "item_picker_modal": {
+      "style": "Large bottom sheet or full-screen overlay for item selection.",
+      "background": "Deeply dark stone (#151515) with heavy borders.",
+      "typography": "Gold headings, list items color-coded strictly by rarity.",
+      "list_items": "Border-bottom 1px solid #2A2A2A. Show item name and key stat."
+    },
+    "rarity_indicators": {
+      "style": "Text color mapping exactly to the rarity. For higher tiers (Epic, Legendary, Unique), include a subtle drop-shadow or text-shadow in the corresponding color to simulate a 'glow'."
+    }
+  },
+  "media_urls": {
+    "background_stone": "https://images.unsplash.com/photo-1775315454219-b3817c719290?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2MzR8MHwxfHNlYXJjaHwyfHxkYXJrJTIwc3RvbmUlMjB3YWxsJTIwdGV4dHVyZXxlbnwwfHx8fDE3Nzg2NzUyNDB8MA&ixlib=rb-4.1.0&q=85",
+    "background_parchment": "https://images.pexels.com/photos/5102226/pexels-photo-5102226.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "class_portrait_placeholder": "https://images.unsplash.com/photo-1606773061828-28a5ad536bf8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHw0fHxtZWRpZXZhbCUyMGFybW9yJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzc4Njc1MjQwfDA&ixlib=rb-4.1.0&q=85"
+  },
+  "instructions_to_main_agent": [
+    "Use React Native primitives (View, Text, ScrollView, Modal, TouchableOpacity) styled with NativeWind/Tailwind classes.",
+    "Implement the layout as a 35/65 split: `<View className=\"flex-row flex-1\"> <ScrollView className=\"w-[35%]\">...stats</ScrollView> <ScrollView className=\"w-[65%]\">...gear</ScrollView> </View>` to meet the 'stats on the left' requirement on mobile.",
+    "Apply rarity colors rigorously to text and borders when an item is selected. A 'Poor' item must be gray, 'Legendary' orange/gold, etc.",
+    "Use standard .js files (not .tsx) as specified in the environment constraints.",
+    "All interactive elements MUST include a 'testID' attribute (the React Native equivalent of data-testid) formatted in kebab-case (e.g., testID='gear-slot-head', testID='class-selector-btn').",
+    "For backgrounds, use `<ImageBackground>` with the provided media_urls to create the gritty, dark fantasy texture over flat colors."
+  ]
+}
