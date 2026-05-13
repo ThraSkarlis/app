@@ -22,6 +22,18 @@ A mobile (Expo / React Native) loadout builder for the dark-fantasy dungeon-craw
 - AsyncStorage for persistence.
 - No backend integrations — fully offline.
 
+## Stat Math (verified against the official wiki)
+All formulas implemented exactly per https://darkanddarker.wiki.spellsandguns.com/Stats (Patch 6.11):
+- Physical / Magic Power Bonus piecewise curve (-80% at 0 power → 0% at 15 → +50% at 100).
+- Move Speed from Agility piecewise (-10 at 0 → 0 at 15 → +43.5 at 100), hard cap 330.
+- Magic Resistance Rating from Will piecewise (-20 at 0 → 30 at 15 → 209 at 100).
+- Magical Damage Reduction % piecewise from MR Rating (cap 65%).
+- Buff Duration, Debuff Duration, Health Recovery Bonus piecewise from Will/Vigor.
+- Action Speed = Agility + Dexterity contributions (both piecewise).
+- Armor Rating → PDR piecewise (-22% at 0 AR matching naked Fighter, cap 50% or 75% with perk).
+
+Class baseline HP & attributes seeded directly from each class's wiki page (Fighter 125 HP, Wizard 95 HP, etc.); attribute totals always sum to 105.
+
 ## Future Work
 - Item search by name.
 - Loadout sharing via deep link / cloud sync.

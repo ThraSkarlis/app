@@ -91,7 +91,7 @@ function extraRolls(slot: SlotDef['itemSlot'], r: Rarity): ItemStatBonus {
   const rolls = tierExtraRolls[r];
   if (rolls === 0) return {};
   const out: ItemStatBonus = {};
-  const armorRolls: (keyof ItemStatBonus)[] = ['strength', 'vigor', 'will', 'agility', 'maxHp', 'magicResist'];
+  const armorRolls: (keyof ItemStatBonus)[] = ['strength', 'vigor', 'will', 'agility', 'maxHp', 'magicResistRating'];
   const weaponRolls: (keyof ItemStatBonus)[] = ['additionalPhysicalDamage', 'physicalDamageBonus', 'agility', 'strength', 'actionSpeed'];
   const jewelryRolls: (keyof ItemStatBonus)[] = ['will', 'knowledge', 'resourcefulness', 'magicDamageBonus', 'magicalHealing', 'buffDuration'];
   const utilityRolls: (keyof ItemStatBonus)[] = ['hpRegen', 'maxHp', 'interactionSpeed'];
@@ -189,7 +189,7 @@ const BASE_ITEMS: Array<Omit<ItemInstance, 'id' | 'rarity' | 'bonuses'> & { base
 
   // BACK
   { baseId: 'cloak', name: 'Cloak', itemSlot: 'back', classes: ALL, baseBonuses: { armorRating: 2 } },
-  { baseId: 'cape', name: 'Cape', itemSlot: 'back', classes: ALL, baseBonuses: { armorRating: 3, magicResist: 2 } },
+  { baseId: 'cape', name: 'Cape', itemSlot: 'back', classes: ALL, baseBonuses: { armorRating: 3, magicResistRating: 2 } },
   { baseId: 'rogue_cloak', name: 'Rogue Cloak', itemSlot: 'back', classes: ['rogue'], baseBonuses: { armorRating: 3, agility: 2 } },
 
   // NECKLACE

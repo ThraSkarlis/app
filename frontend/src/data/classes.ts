@@ -1,5 +1,5 @@
-// Base classes for Dark and Darker. Base stats per class (lvl 1, no gear).
-// Source: Dark and Darker wiki community values (approximations sufficient for builder).
+// Base class data sourced from https://darkanddarker.wiki.spellsandguns.com (Patch 6.11)
+// Every class's 7 attributes sum to exactly 105.
 
 export type ClassId =
   | 'fighter'
@@ -17,67 +17,52 @@ export interface ClassDef {
   name: string;
   tagline: string;
   description: string;
-  emblem: string; // single rune-like glyph for portrait
+  emblem: string;
   baseStats: {
     strength: number;
+    vigor: number;
     agility: number;
+    dexterity: number;
     will: number;
     knowledge: number;
     resourcefulness: number;
-    vigor: number;
   };
-  // Health = (vigor base) -> derived; using game's max-hp baseline at lvl 1
+  // Final naked-character Health as shown on each wiki class page.
   baseMaxHp: number;
-  baseMoveSpeed: number; // base value in raw "move speed" units (300 = walking baseline)
-  baseActionSpeed: number; // 100 = neutral
-  baseArmorRating: number;
-  baseMagicResist: number;
-  // Allowed equipment slots for this class (some classes can't wear plate, etc.)
-  forbiddenItemTypes?: string[];
+  // Class-level memory capacity baseline (some casters get bonus).
+  baseMemoryCap?: number;
 }
 
 export const CLASSES: ClassDef[] = [
   {
     id: 'fighter',
     name: 'Fighter',
-    tagline: 'The Versatile Warrior',
+    tagline: 'A Master of Arms',
     description:
-      'A masterful tactician trained in every weapon and armor. Balanced, durable, and dangerous.',
+      'A versatile warrior with balanced attributes, trained in every weapon and armor.',
     emblem: 'F',
-    baseStats: { strength: 15, agility: 15, will: 15, knowledge: 10, resourcefulness: 15, vigor: 15 },
-    baseMaxHp: 115,
-    baseMoveSpeed: 300,
-    baseActionSpeed: 100,
-    baseArmorRating: 30,
-    baseMagicResist: 8,
+    baseStats: { strength: 15, vigor: 15, agility: 15, dexterity: 15, will: 15, knowledge: 15, resourcefulness: 15 },
+    baseMaxHp: 125,
   },
   {
     id: 'barbarian',
     name: 'Barbarian',
     tagline: 'The Brutal Marauder',
     description:
-      'A savage warrior who wields massive weapons. Trades finesse for sheer overwhelming force.',
+      'A savage warrior wielding massive weapons. Trades finesse for sheer overwhelming force.',
     emblem: 'B',
-    baseStats: { strength: 20, agility: 10, will: 13, knowledge: 8, resourcefulness: 8, vigor: 18 },
-    baseMaxHp: 135,
-    baseMoveSpeed: 290,
-    baseActionSpeed: 95,
-    baseArmorRating: 18,
-    baseMagicResist: 10,
+    baseStats: { strength: 20, vigor: 23, agility: 15, dexterity: 10, will: 15, knowledge: 5, resourcefulness: 17 },
+    baseMaxHp: 140,
   },
   {
     id: 'rogue',
     name: 'Rogue',
     tagline: 'The Shadow Stalker',
     description:
-      'A nimble assassin who strikes from darkness. Specializes in daggers, traps, and treachery.',
+      'A nimble assassin who strikes from darkness with daggers, traps, and treachery.',
     emblem: 'R',
-    baseStats: { strength: 9, agility: 20, will: 10, knowledge: 12, resourcefulness: 20, vigor: 9 },
-    baseMaxHp: 90,
-    baseMoveSpeed: 305,
-    baseActionSpeed: 105,
-    baseArmorRating: 10,
-    baseMagicResist: 5,
+    baseStats: { strength: 8, vigor: 8, agility: 18, dexterity: 22, will: 10, knowledge: 14, resourcefulness: 25 },
+    baseMaxHp: 95,
   },
   {
     id: 'ranger',
@@ -86,12 +71,8 @@ export const CLASSES: ClassDef[] = [
     description:
       'A patient archer who strikes from afar. Master of the bow, traps, and the wilds.',
     emblem: 'A',
-    baseStats: { strength: 12, agility: 18, will: 12, knowledge: 13, resourcefulness: 18, vigor: 12 },
-    baseMaxHp: 100,
-    baseMoveSpeed: 300,
-    baseActionSpeed: 100,
-    baseArmorRating: 15,
-    baseMagicResist: 5,
+    baseStats: { strength: 15, vigor: 15, agility: 17, dexterity: 17, will: 12, knowledge: 14, resourcefulness: 15 },
+    baseMaxHp: 110,
   },
   {
     id: 'wizard',
@@ -100,12 +81,9 @@ export const CLASSES: ClassDef[] = [
     description:
       'A keeper of forbidden spells. Devastating damage at the cost of fragility.',
     emblem: 'W',
-    baseStats: { strength: 8, agility: 11, will: 14, knowledge: 22, resourcefulness: 10, vigor: 10 },
-    baseMaxHp: 85,
-    baseMoveSpeed: 295,
-    baseActionSpeed: 100,
-    baseArmorRating: 8,
-    baseMagicResist: 12,
+    baseStats: { strength: 8, vigor: 10, agility: 12, dexterity: 14, will: 14, knowledge: 25, resourcefulness: 22 },
+    baseMaxHp: 95,
+    baseMemoryCap: 19,
   },
   {
     id: 'cleric',
@@ -114,12 +92,9 @@ export const CLASSES: ClassDef[] = [
     description:
       'A divine warrior who heals allies and smites the wicked with sacred power.',
     emblem: 'C',
-    baseStats: { strength: 13, agility: 9, will: 19, knowledge: 17, resourcefulness: 10, vigor: 14 },
-    baseMaxHp: 110,
-    baseMoveSpeed: 285,
-    baseActionSpeed: 95,
-    baseArmorRating: 28,
-    baseMagicResist: 15,
+    baseStats: { strength: 15, vigor: 15, agility: 13, dexterity: 8, will: 22, knowledge: 22, resourcefulness: 10 },
+    baseMaxHp: 120,
+    baseMemoryCap: 16,
   },
   {
     id: 'warlock',
@@ -128,12 +103,9 @@ export const CLASSES: ClassDef[] = [
     description:
       'A wielder of dark magics who trades flesh for power. Strong sustain, hexes the soul.',
     emblem: 'L',
-    baseStats: { strength: 12, agility: 12, will: 18, knowledge: 18, resourcefulness: 10, vigor: 12 },
-    baseMaxHp: 100,
-    baseMoveSpeed: 295,
-    baseActionSpeed: 100,
-    baseArmorRating: 14,
-    baseMagicResist: 14,
+    baseStats: { strength: 15, vigor: 15, agility: 12, dexterity: 11, will: 22, knowledge: 20, resourcefulness: 10 },
+    baseMaxHp: 115,
+    baseMemoryCap: 14,
   },
   {
     id: 'bard',
@@ -142,12 +114,8 @@ export const CLASSES: ClassDef[] = [
     description:
       'A charismatic performer whose songs empower allies and bewilder enemies.',
     emblem: 'D',
-    baseStats: { strength: 11, agility: 14, will: 14, knowledge: 15, resourcefulness: 18, vigor: 12 },
-    baseMaxHp: 95,
-    baseMoveSpeed: 300,
-    baseActionSpeed: 102,
-    baseArmorRating: 14,
-    baseMagicResist: 10,
+    baseStats: { strength: 10, vigor: 10, agility: 13, dexterity: 22, will: 12, knowledge: 13, resourcefulness: 25 },
+    baseMaxHp: 100,
   },
   {
     id: 'druid',
@@ -156,12 +124,9 @@ export const CLASSES: ClassDef[] = [
     description:
       'A primal caster who shapeshifts into beasts and channels the fury of nature.',
     emblem: 'U',
-    baseStats: { strength: 11, agility: 13, will: 17, knowledge: 17, resourcefulness: 12, vigor: 14 },
-    baseMaxHp: 100,
-    baseMoveSpeed: 298,
-    baseActionSpeed: 100,
-    baseArmorRating: 12,
-    baseMagicResist: 12,
+    baseStats: { strength: 11, vigor: 13, agility: 14, dexterity: 11, will: 20, knowledge: 20, resourcefulness: 16 },
+    baseMaxHp: 105,
+    baseMemoryCap: 14,
   },
 ];
 
